@@ -5,10 +5,10 @@ public class Employee {
     private String name;
     private String currentPosition;
     private String email;
-    private int phone;
+    private String phone;
     private int age;
 
-    public Employee(String name, String currentPosition, String email, int phone, int age) {
+    public Employee(String name, String currentPosition, String email, String phone, int age) {
         this.name = name;
         this.currentPosition = currentPosition;
         this.email = email;
@@ -40,11 +40,11 @@ public class Employee {
         this.email = email;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
