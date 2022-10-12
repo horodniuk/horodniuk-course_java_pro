@@ -1,4 +1,4 @@
-package hometask.oop;
+package hometask.oop.encapsulation;
 
 public class Employee {
 

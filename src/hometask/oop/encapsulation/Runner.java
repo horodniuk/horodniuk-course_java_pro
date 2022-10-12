@@ -1,4 +1,4 @@
-package hometask.oop;
+package hometask.oop.encapsulation;
 
 public class Runner {
     public static void main(String[] args) {
