@@ -1,6 +1,8 @@
 package hometask.oop.polymorphism.competition;
 
 import hometask.oop.polymorphism.competition.obstacle.Obstacle;
+import hometask.oop.polymorphism.competition.obstacle.Treadmill;
+import hometask.oop.polymorphism.competition.obstacle.Wall;
 import hometask.oop.polymorphism.competition.participant.Participant;
 
 public class Competition {
@@ -14,14 +16,14 @@ public class Competition {
     }
 
     public void start() {
-        for (int i = 0; i < participants.length; i++) {
+        for (Participant participant : participants) {
             for (int j = 0; j < obstacles.length; j++) {
-                if (participants[i].isOvercameObstacles()) {
+                if (participant.isOvercameObstacles()) {
                     System.out.println();
-                    if (obstacles[j].getClass().getSimpleName().equals("Treadmill")){
-                        participants[i].run(obstacles[j]);
-                    } else if (obstacles[j].getClass().getSimpleName().equals("Wall")) {
-                        participants[i].jump(obstacles[j]);
+                    if (obstacles[j] instanceof Treadmill) {
+                        participant.run(obstacles[j]);
+                    } else if (obstacles[j] instanceof Wall) {
+                        participant.jump(obstacles[j]);
                     }
 
                 } else {
