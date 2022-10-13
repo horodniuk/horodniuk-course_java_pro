@@ -1,6 +1,11 @@
 package hometask.oop.inheritance;
 
 public class Dog extends Animal {
+    static int count = 0;
+
+    public Dog() {
+        count++;
+    }
 
     @Override
     public void run(double distance) {
@@ -18,5 +23,9 @@ public class Dog extends Animal {
         } else {
             System.out.println("Dog can't swam this distance " + distance + " m.");
         }
+    }
+
+    public static int getCount() {
+        return count;
     }
 }

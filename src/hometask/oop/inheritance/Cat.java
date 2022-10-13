@@ -1,6 +1,11 @@
 package hometask.oop.inheritance;
 
 public class Cat extends Animal {
+    static int count = 0;
+
+    public Cat() {
+        count++;
+    }
 
     @Override
     public void run(double distance) {
@@ -13,6 +18,14 @@ public class Cat extends Animal {
 
     @Override
     public void swim(double distance) {
-        System.out.println("cat can't swim");
+        try {
+            throw new Exception("cat can't swam");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static int getCount() {
+        return count;
     }
 }

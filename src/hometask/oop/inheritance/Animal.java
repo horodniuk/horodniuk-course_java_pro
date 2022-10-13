@@ -7,7 +7,7 @@ public abstract class Animal {
         count++;
     }
 
-    public abstract void run (double distance);
+    public abstract void run(double distance);
 
     public abstract void swim(double distance);
 
