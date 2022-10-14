@@ -1,10 +1,10 @@
 package hometask.oop.inheritance;
 
 public class Cat extends Animal {
-    static int count = 0;
+    static int instanceCount = 0;
 
     public Cat() {
-        count++;
+        instanceCount++;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class Cat extends Animal {
         }
     }
 
-    public static int getCount() {
-        return count;
+    public static int getInstanceCount() {
+        return instanceCount;
     }
 }

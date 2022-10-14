@@ -10,9 +10,9 @@ public class Main {
         new Dog().swim(5);
         new Dog().swim(5000);
 
-        System.out.println("counting created cats, dogs and animals - " + Animal.getCount());
-        System.out.println("counting created cats - " + Cat.getCount());
-        System.out.println("counting created dogs - " + Dog.getCount());
+        System.out.println("counting created cats, dogs and animals - " + Animal.getInstanceCount());
+        System.out.println("counting created cats - " + Cat.getInstanceCount());
+        System.out.println("counting created dogs - " + Dog.getInstanceCount());
 
     }
 }

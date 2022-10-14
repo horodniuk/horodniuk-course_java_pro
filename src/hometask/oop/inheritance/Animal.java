@@ -1,17 +1,17 @@
 package hometask.oop.inheritance;
 
 public abstract class Animal {
-    static int count = 0;
+    static int instanceCount = 0;
 
     public Animal() {
-        count++;
+        instanceCount++;
     }
 
     public abstract void run(double distance);
 
     public abstract void swim(double distance);
 
-    public static int getCount() {
-        return count;
+    public static int getInstanceCount() {
+        return instanceCount;
     }
 }
