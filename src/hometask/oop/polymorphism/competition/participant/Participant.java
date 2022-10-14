@@ -3,7 +3,7 @@ package hometask.oop.polymorphism.competition.participant;
 import hometask.oop.polymorphism.competition.obstacle.Obstacle;
 
 public class Participant {
-    private String name;
+    private final String name;
     private double maxJumpingHeight;
     private double maxRunningLengnt;
     private boolean isOvercameObstacles;
@@ -19,10 +19,6 @@ public class Participant {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setOvercameObstacles(boolean overcameObstacles) {
         isOvercameObstacles = overcameObstacles;
     }
@@ -31,49 +27,31 @@ public class Participant {
         return isOvercameObstacles;
     }
 
-    public double getMaxJumpingHeight() {
-        return maxJumpingHeight;
-    }
-
-    public void setMaxJumpingHeight(double maxJumpingHeight) {
-        this.maxJumpingHeight = maxJumpingHeight;
-    }
-
-    public double getMaxRunningLengnt() {
-        return maxRunningLengnt;
-    }
-
-    public void setMaxRunningLengnt(double maxRunningLengnt) {
-        this.maxRunningLengnt = maxRunningLengnt;
-    }
-
     private void printRemainder() {
         System.out.println("Remainder --->  maxJumpingHeight " + maxJumpingHeight + " __ maxRunningLengnt " + maxRunningLengnt);
     }
 
     public void run(Obstacle obstacle) {
-        if (obstacle.getDistance() <= maxRunningLengnt) {
-            maxRunningLengnt -= obstacle.getDistance();
-            System.out.println("Participant " + getName() + " cleared obstacle "+ obstacle.getClass().getSimpleName() + " at distance " + obstacle.getDistance());
+        if (obstacle.overcome() <= maxRunningLengnt) {
+            maxRunningLengnt -= obstacle.overcome();
+            System.out.println("Participant " + getName() + " cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.overcome());
             printRemainder();
         } else {
             setOvercameObstacles(false);
-            System.out.println("Participant  " + getName() + " not cleared obstacle "+ obstacle.getClass().getSimpleName()+ " at distance " + obstacle.getDistance() +
+            System.out.println("Participant  " + getName() + " not cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.overcome() +
                                ". Cleared " + maxRunningLengnt);
             printRemainder();
         }
     }
 
-
-
     public void jump(Obstacle obstacle) {
-        if (obstacle.getDistance() <= maxJumpingHeight) {
-            maxJumpingHeight -= obstacle.getDistance();
-            System.out.println("Participant " + getName() + " cleared obstacle "+ obstacle.getClass().getSimpleName()+ " at distance " + obstacle.getDistance());
+        if (obstacle.overcome() <= maxJumpingHeight) {
+            maxJumpingHeight -= obstacle.overcome();
+            System.out.println("Participant " + getName() + " cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.overcome());
             printRemainder();
         } else {
             setOvercameObstacles(false);
-            System.out.println("Participant " + getName() + " not cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.getDistance() +
+            System.out.println("Participant " + getName() + " not cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.overcome() +
                                ". Cleared " + maxJumpingHeight);
             printRemainder();
         }

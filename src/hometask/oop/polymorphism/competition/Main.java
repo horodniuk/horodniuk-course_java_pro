@@ -8,7 +8,7 @@ import hometask.oop.polymorphism.competition.participant.Human;
 import hometask.oop.polymorphism.competition.participant.Participant;
 import hometask.oop.polymorphism.competition.participant.Robot;
 
-public class Runner {
+public class Main {
     public static void main(String[] args) {
         Obstacle[] obstacles = {
                 new Treadmill(2),
@@ -27,7 +27,6 @@ public class Runner {
 
         Competition competition = new Competition(participants, obstacles);
         competition.start();
-
 
     }
 }

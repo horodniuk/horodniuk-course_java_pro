@@ -25,9 +25,8 @@ public class Competition {
                     } else if (obstacles[j] instanceof Wall) {
                         participant.jump(obstacles[j]);
                     }
-
                 } else {
-                    System.out.println("eliminated from participation in a series of obstacles");
+                    System.out.println("participant exclude from  in a series of obstacles");
                     break;
                 }
             }

@@ -1,10 +1,9 @@
 package hometask.oop.inheritance;
 
-public class Runner {
+public class Main {
     public static void main(String[] args) {
         new Cat().run(5);
         new Cat().run(5000);
-
 
         new Dog().run(5);
         new Dog().run(5000);
