@@ -1,5 +1,7 @@
 package hometask.oop.polymorphism.competition.obstacle;
 
+import hometask.oop.polymorphism.competition.participant.Participant;
+
 public abstract class Obstacle {
     private final double distance;
 
@@ -7,7 +9,9 @@ public abstract class Obstacle {
         this.distance = distance;
     }
 
-    public double overcome() {
+    public abstract void overcome(Participant participant);
+
+    public double getDistance() {
         return distance;
     }
 

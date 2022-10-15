@@ -32,26 +32,26 @@ public class Participant {
     }
 
     public void run(Obstacle obstacle) {
-        if (obstacle.overcome() <= maxRunningLengnt) {
-            maxRunningLengnt -= obstacle.overcome();
-            System.out.println("Participant " + getName() + " cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.overcome());
+        if (obstacle.getDistance() <= maxRunningLengnt) {
+            maxRunningLengnt -= obstacle.getDistance();
+            System.out.println("Participant " + getName() + " cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.getDistance());
             printRemainder();
         } else {
             setOvercameObstacles(false);
-            System.out.println("Participant  " + getName() + " not cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.overcome() +
+            System.out.println("Participant  " + getName() + " not cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.getDistance() +
                                ". Cleared " + maxRunningLengnt);
             printRemainder();
         }
     }
 
     public void jump(Obstacle obstacle) {
-        if (obstacle.overcome() <= maxJumpingHeight) {
-            maxJumpingHeight -= obstacle.overcome();
-            System.out.println("Participant " + getName() + " cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.overcome());
+        if (obstacle.getDistance() <= maxJumpingHeight) {
+            maxJumpingHeight -= obstacle.getDistance();
+            System.out.println("Participant " + getName() + " cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.getDistance());
             printRemainder();
         } else {
             setOvercameObstacles(false);
-            System.out.println("Participant " + getName() + " not cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.overcome() +
+            System.out.println("Participant " + getName() + " not cleared obstacle " + obstacle.getClass().getSimpleName() + " at distance " + obstacle.getDistance() +
                                ". Cleared " + maxJumpingHeight);
             printRemainder();
         }

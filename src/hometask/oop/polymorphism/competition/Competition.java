@@ -9,7 +9,6 @@ public class Competition {
     private final Participant[] participants;
     private final Obstacle[] obstacles;
 
-
     public Competition(Participant[] participants, Obstacle[] obstacles) {
         this.participants = participants;
         this.obstacles = obstacles;
@@ -20,11 +19,7 @@ public class Competition {
             for (int j = 0; j < obstacles.length; j++) {
                 if (participant.isOvercameObstacles()) {
                     System.out.println();
-                    if (obstacles[j] instanceof Treadmill) {
-                        participant.run(obstacles[j]);
-                    } else if (obstacles[j] instanceof Wall) {
-                        participant.jump(obstacles[j]);
-                    }
+                    obstacles[j].overcome(participant);
                 } else {
                     System.out.println("participant exclude from  in a series of obstacles");
                     break;
