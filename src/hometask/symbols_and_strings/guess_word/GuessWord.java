@@ -11,26 +11,25 @@ public class GuessWord {
                 "mushroom", "nut", "olive", "pea", "peanut", "pear",
                 "pepper", "pineapple", "pumpkin", "potato"};
         final String hiddenWord = words[new Random().nextInt(words.length - 1)];
-        // System.out.println("Guess word ---> " + hiddenWord);
         StringBuilder hintWord = new StringBuilder("###############");
 
         while (true) {
             System.out.println("Please, enter word:");
-            String answerUser = new Scanner(System.in).nextLine();
-            if (answerUser.equals(hiddenWord) || answerUser.startsWith(hiddenWord)) {
+            String answerWord = new Scanner(System.in).nextLine();
+            if (answerWord.equals(hiddenWord) || answerWord.startsWith(hiddenWord)) {
                 System.out.println("Congratulations, you guessed word - " + hiddenWord);
                 break;
             } else {
-                printHint(answerUser, hiddenWord, hintWord);
+                printHint(answerWord, hiddenWord, hintWord);
             }
         }
     }
 
-    private void printHint(String answerUser, String guessWord, StringBuilder hintWord) {
-        int countSymbolsSmallerWord = Math.min(guessWord.length(), answerUser.length());
+    private void printHint(String answerWord, String hiddenWord, StringBuilder hintWord) {
+        int countSymbolsSmallerWord = Math.min(hiddenWord.length(), answerWord.length());
         for (int i = 0; i < countSymbolsSmallerWord; i++) {
-            if (answerUser.charAt(i) == guessWord.charAt(i)) {
-                hintWord.setCharAt(i, answerUser.charAt(i));
+            if (answerWord.charAt(i) == hiddenWord.charAt(i)) {
+                hintWord.setCharAt(i, answerWord.charAt(i));
             }
         }
         System.out.println("Hint shown - " + hintWord + ". Try again:");
