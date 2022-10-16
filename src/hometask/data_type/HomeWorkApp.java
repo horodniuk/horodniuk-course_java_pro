@@ -1,6 +1,6 @@
 package hometask.data_type;
 
-public class Main {
+public class HomeWorkApp {
     public static void main(String[] args) {
         MethodsWarehouse obj = new MethodsWarehouse();
 
