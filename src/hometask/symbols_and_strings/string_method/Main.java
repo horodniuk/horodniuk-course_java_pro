@@ -15,6 +15,5 @@ public class Main {
 
         System.out.println(word.isPalindrome("ERE"));
         System.out.println(word.isPalindrome("Allo"));
-
     }
 }
