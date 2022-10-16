@@ -1,4 +1,4 @@
-package symbols_and_strings.string_method;
+package hometask.symbols_and_strings.string_method;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package symbols_and_strings.guess_word;
+package hometask.symbols_and_strings.guess_word;
 
 public class Main {
     public static void main(String[] args) {

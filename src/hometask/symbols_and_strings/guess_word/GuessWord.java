@@ -1,4 +1,4 @@
-package symbols_and_strings.guess_word;
+package hometask.symbols_and_strings.guess_word;
 
 import java.util.Random;
 import java.util.Scanner;
