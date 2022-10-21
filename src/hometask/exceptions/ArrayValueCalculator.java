@@ -12,7 +12,7 @@ public class ArrayValueCalculator {
                 try {
                     result += Integer.parseInt(array[i][j]);
                 } catch (NumberFormatException e) {
-                    throw new ArrayDataException("Cell [" + i + "][" + j + "] contains incorrect data  -->" + array[i][j]);
+                    throw new ArrayDataException("Cell [" + i + "][" + j + "] contains incorrect data  --> " + array[i][j]);
                 }
             }
         }
@@ -20,6 +20,10 @@ public class ArrayValueCalculator {
     }
 
     public void checkCorrectSizeByArray(String[][] array, int row, int col) throws ArraySizeException {
+        if (array.length == 0) {
+            throw new ArraySizeException("array is empty");
+        }
+
         for (String[] strings : array) {
             if (array.length != row || strings.length != col) {
                 throw new ArraySizeException("wrong array size");
