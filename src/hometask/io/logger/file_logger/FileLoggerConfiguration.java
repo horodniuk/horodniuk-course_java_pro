@@ -6,17 +6,17 @@ import hometask.io.logger.LoggingLevel;
 import java.io.File;
 
 public class FileLoggerConfiguration extends AbstractLoggerConfiguration {
-    private File file;
+    private String pathFileLogger;
     private long maxSize;
 
-    public FileLoggerConfiguration(LoggingLevel logginLevel, String formatWritting, File file, long maxSize) {
+    public FileLoggerConfiguration(LoggingLevel logginLevel, String formatWritting, String pathFileLogger, long maxSize) {
         super(logginLevel, formatWritting);
-        this.file = file;
+        this.pathFileLogger = pathFileLogger;
         this.maxSize = maxSize;
     }
 
-    public File getFile() {
-        return file;
+    public String getPathFileLogger() {
+        return pathFileLogger;
     }
 
     public LoggingLevel getLogginLevel() {
@@ -31,19 +31,5 @@ public class FileLoggerConfiguration extends AbstractLoggerConfiguration {
         return formatWritting;
     }
 
-    public void setFile(File file) {
-        this.file = file;
-    }
 
-    public void setLogginLevel(LoggingLevel logginLevel) {
-        this.logginLevel = logginLevel;
-    }
-
-    public void setMaxSize(long maxSize) {
-        this.maxSize = maxSize;
-    }
-
-    public void setFormatWritting(String formatWritting) {
-        this.formatWritting = formatWritting;
-    }
 }

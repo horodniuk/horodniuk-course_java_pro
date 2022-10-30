@@ -10,17 +10,23 @@ import java.util.Properties;
 
 public class FileLoggerConfigurationLoader extends AbstractLoggerConfigurationLoader {
     @Override
-    public FileLoggerConfiguration load(File configFile) throws IOException {
-        FileReader reader = new FileReader(configFile);
-        Properties p = new Properties();
-        p.load(reader);
+    public FileLoggerConfiguration load(File configFile) {
+        String pathFileLogger = null;
+        LoggingLevel loggingLevel = null;
+        long maxSize = 0;
+        String formatWritting = null;
 
-        File file = new File(p.getProperty("FILE"));
-        LoggingLevel loggingLevel = LoggingLevel.valueOf(p.getProperty("LEVEL"));
-        long maxSize = Byte.parseByte(p.getProperty("MAX-SIZE"));
-        String formatWritting = p.getProperty("FORMAT");
+        try (FileReader reader = new FileReader(configFile)) {
+            Properties p = new Properties();
+            p.load(reader);
 
-        reader.close();
-        return new FileLoggerConfiguration(loggingLevel, formatWritting, file, maxSize);
+            pathFileLogger = p.getProperty("FILE_PATH");
+            loggingLevel = LoggingLevel.valueOf(p.getProperty("LEVEL"));
+            maxSize = Long.parseLong((p.getProperty("MAX-SIZE")));
+            formatWritting = p.getProperty("FORMAT");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new FileLoggerConfiguration(loggingLevel, formatWritting, pathFileLogger, maxSize);
     }
 }

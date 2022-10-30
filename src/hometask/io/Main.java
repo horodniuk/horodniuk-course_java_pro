@@ -17,7 +17,7 @@ public class Main {
 
         AbstractLogger fileLogger = new FileLogger(fileLoggerConfiguration);
 
-        fileLogger.debug("debug");
-        fileLogger.info("info");
+        fileLogger.debug("debug message");
+        fileLogger.info("info message");
     }
 }
