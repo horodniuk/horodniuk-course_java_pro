@@ -9,19 +9,16 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class StdoutLoggerConfigurationLoader extends AbstractLoggerConfigurationLoader {
-
     @Override
     public StdoutLoggerConfiguration load(File configFile) {
-        Properties p = new Properties();
-
         try (FileReader reader = new FileReader(configFile)) {
-            p = new Properties();
+            Properties p = new Properties();
             p.load(reader);
+            return new StdoutLoggerConfiguration(
+                    LoggingLevel.valueOf(p.getProperty("LEVEL")),
+                    p.getProperty("FORMAT"));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
-        return new StdoutLoggerConfiguration(
-                LoggingLevel.valueOf(p.getProperty("LEVEL")),
-                p.getProperty("FORMAT"));
     }
 }
