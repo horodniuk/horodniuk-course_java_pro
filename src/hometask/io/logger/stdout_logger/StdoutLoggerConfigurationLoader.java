@@ -1,4 +1,4 @@
-package hometask.io.logger.file_logger;
+package hometask.io.logger.stdout_logger;
 
 import hometask.io.logger.AbstractLoggerConfigurationLoader;
 import hometask.io.logger.LoggingLevel;
@@ -8,9 +8,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class FileLoggerConfigurationLoader extends AbstractLoggerConfigurationLoader {
+public class StdoutLoggerConfigurationLoader extends AbstractLoggerConfigurationLoader {
+
     @Override
-    public FileLoggerConfiguration load(File configFile) {
+    public StdoutLoggerConfiguration load(File configFile) {
         Properties p = new Properties();
 
         try (FileReader reader = new FileReader(configFile)) {
@@ -19,10 +20,8 @@ public class FileLoggerConfigurationLoader extends AbstractLoggerConfigurationLo
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new FileLoggerConfiguration(
+        return new StdoutLoggerConfiguration(
                 LoggingLevel.valueOf(p.getProperty("LEVEL")),
-                p.getProperty("FORMAT"),
-                p.getProperty("FILE_PATH"),
-                Long.parseLong((p.getProperty("MAX-SIZE"))));
+                p.getProperty("FORMAT"));
     }
 }

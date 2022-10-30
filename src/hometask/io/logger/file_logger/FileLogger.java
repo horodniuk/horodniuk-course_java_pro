@@ -7,6 +7,7 @@ import hometask.io.logger.LoggingLevel;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,7 +19,6 @@ public class FileLogger extends AbstractLogger {
         this.fileLoggerConfiguration = fileLoggerConfiguration;
         currentPath = fileLoggerConfiguration.getPathFileLogger() + String.format("Log_%s.txt", LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss.SSS")));
-
     }
 
     @Override
@@ -38,36 +38,28 @@ public class FileLogger extends AbstractLogger {
     private void checkSizeCurrentFile(String message) {
         long currentFileSize = new File(currentPath).length();
         int messageSize = message.getBytes().length;
-
         if (currentFileSize + messageSize >= fileLoggerConfiguration.getMaxSize()) {
-            try {
-                throw new FileMaxSizeReachedException(fileLoggerConfiguration.getMaxSize(), currentFileSize, currentPath);
-            } catch (FileMaxSizeReachedException e) {
-                currentPath = createNewFilePath();
-            }
-
+            currentPath = createNewFilePath();
         }
     }
 
     private void writeLog(String message) {
-        try {
-            FileWriter fileWriter = new FileWriter(currentPath, true);
-            BufferedWriter output = new BufferedWriter(fileWriter);
+        try (BufferedWriter output = new BufferedWriter(new FileWriter(currentPath, true))) {
             output.write(messageTemplate(message));
             output.newLine();
             output.flush();
-            output.close();
-        } catch (Exception e) {
-            e.getStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private String messageTemplate(String message) {
         return String.format(
                 fileLoggerConfiguration.getFormatWritting(),
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm")),
-                fileLoggerConfiguration.getLogginLevel(),
-                message
+                "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm")) + "]",
+                "[" + fileLoggerConfiguration.getLogginLevel() + "]",
+                "Message",
+                "[" + message + "]"
         );
     }
 
