@@ -34,20 +34,4 @@ public class Phonebook {
         if (listRecordings.isEmpty()) return null;
         return listRecordings;
     }
-
-
-    public static void main(String[] args) {
-        Phonebook telefonnayaKniga = new Phonebook();
-        telefonnayaKniga.add(new Recording("Oleg", "111"));
-        telefonnayaKniga.add(new Recording("Oleg", "111"));
-        telefonnayaKniga.add(new Recording("Anton", "122"));
-        telefonnayaKniga.add(new Recording("Andrei", "133"));
-        telefonnayaKniga.add(new Recording("Anton", "144"));
-
-        List<Recording> testZapisFindAll = telefonnayaKniga.findAll("Anton");
-        System.out.println(testZapisFindAll);
-
-    }
-
-
 }
