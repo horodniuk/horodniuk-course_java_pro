@@ -1,37 +1,34 @@
 package hometask.collection.collections_lists.phonebook;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Phonebook {
-    private ArrayList<Recording> recordings;
+    private Map<String, List<Recording>> recordings;
 
     public Phonebook() {
-        recordings = new ArrayList<>();
+        recordings = new HashMap<>();
     }
 
-    void add(Recording recording) {
-        recordings.add(recording);
+    void add(Recording value) {
+        String key = value.getName();
+        if (recordings.containsKey(key)) {
+            recordings.get(key).add(value);
+        } else {
+            List<Recording> list = new ArrayList<>();
+            list.add(value);
+            recordings.put(key, list);
+        }
     }
 
     public Recording find(String searchedEntryName) {
-        for (Recording currentRecording : recordings) {
-            if (currentRecording.getName().equals(searchedEntryName)) {
-                return currentRecording;
-            }
-        }
-        return null;
+        return recordings.get(searchedEntryName).get(0);
     }
 
     public List<Recording> findAll(String searchedEntryName) {
-        List<Recording> listRecordings = new ArrayList<>();
-        for (Recording currentRecording : recordings) {
-            if (currentRecording.getName().equals(searchedEntryName)) {
-                listRecordings.add(currentRecording);
-            }
-        }
-        if (listRecordings.isEmpty()) return null;
-        return listRecordings;
+        return recordings.get(searchedEntryName);
     }
 }
