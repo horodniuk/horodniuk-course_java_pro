@@ -51,12 +51,7 @@ public class FileNavigator {
 
     public List<FileData> sortBySize() {
         List<FileData> sortingList = convertMapValuesForList();
-        Collections.sort(sortingList, new Comparator<FileData>() {
-            @Override
-            public int compare(FileData o1, FileData o2) {
-                return o1.getSize() - o2.getSize();
-            }
-        });
+        Collections.sort(sortingList, Comparator.comparingInt(FileData::getSize));
         return sortingList;
     }
 
