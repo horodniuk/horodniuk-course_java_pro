@@ -4,33 +4,30 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CoffeeOrderBoard {
-    private Map<Integer, Order> orders;
+    private static int ordersNumber;
+    private Map<Integer, Order> ordersMap;
 
     public CoffeeOrderBoard() {
-        orders = new LinkedHashMap<>();
+        ordersMap = new LinkedHashMap<>();
     }
 
-    ;
-
     public void add(Order order) {
-        orders.put(order.getNumber(), order);
+        ordersMap.put(ordersNumber++, order);
     }
 
     public void deliver() {
-        Integer getFirstIndexKey = orders.entrySet().iterator().next().getKey();
-        orders.remove(getFirstIndexKey);
+        Integer getFirstIndexKey = ordersMap.entrySet().iterator().next().getKey();
+        ordersMap.remove(getFirstIndexKey);
     }
 
     public void deliver(int numberOrder) {
-        orders.remove(numberOrder);
+        ordersMap.remove(numberOrder);
     }
 
     public void draw() {
         System.out.println("Num | Name");
-        for (Integer numberOrder : orders.keySet()) {
-            System.out.printf("%3d | %s%n", numberOrder, orders.get(numberOrder).getCustomerName());
+        for (Integer numberOrder : ordersMap.keySet()) {
+            System.out.printf("%3d | %s%n", numberOrder, ordersMap.get(numberOrder).getCustomerName());
         }
     }
-
-
 }
