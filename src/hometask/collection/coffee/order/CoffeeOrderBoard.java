@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CoffeeOrderBoard {
-    private static int ordersNumber;
+    private static int сurrentOrderNumber;
     private Map<Integer, Order> ordersMap;
 
     public CoffeeOrderBoard() {
@@ -12,7 +12,7 @@ public class CoffeeOrderBoard {
     }
 
     public void add(Order order) {
-        ordersMap.put(ordersNumber++, order);
+        ordersMap.put(сurrentOrderNumber++, order);
     }
 
     public void deliver() {
