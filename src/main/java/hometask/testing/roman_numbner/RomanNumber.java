@@ -36,7 +36,7 @@ public class RomanNumber {
             resultConvertRomanToInt = currentNumber >= nextNumber ?
                     resultConvertRomanToInt + currentNumber : resultConvertRomanToInt - currentNumber;
         }
-        requireIsNumeralInRange(resultConvertRomanToInt, 1, 15);
+        requireIsNumeralInRange(resultConvertRomanToInt, 1, 3999);
         return resultConvertRomanToInt;
     }
 
