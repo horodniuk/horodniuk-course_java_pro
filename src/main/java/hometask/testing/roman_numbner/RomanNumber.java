@@ -9,7 +9,6 @@ import static java.util.Objects.requireNonNull;
 
 public class RomanNumber {
     private final Map<Character, Integer> romanMap;
-
     {
         romanMap = new LinkedHashMap<Character, Integer>();
         romanMap.put('I', 1);
@@ -20,8 +19,6 @@ public class RomanNumber {
         romanMap.put('D', 500);
         romanMap.put('M', 1000);
     }
-
-    ;
 
     public int romanToInt(String romanNumber) {
         requireNonNull(romanNumber, "String " + romanNumber + " is null");
@@ -39,7 +36,6 @@ public class RomanNumber {
         requireIsNumeralInRange(resultConvertRomanToInt, 1, 3999);
         return resultConvertRomanToInt;
     }
-
 
     private static void requireStringLenght(String str, int minLenght, int maxLenght) {
         if (minLenght > str.length() || str.length() > maxLenght) {
