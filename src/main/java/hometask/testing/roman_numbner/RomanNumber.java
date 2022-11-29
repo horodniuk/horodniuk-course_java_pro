@@ -26,7 +26,7 @@ public class RomanNumber {
         requireStringLenght(romanNumber, 1, 15);
         requireStringIsRomanSymbols(romanNumber);
 
-        int resultConvertRomanToInt = romanMap.get(romanNumber.charAt(romanNumber.length() - 1)); // 1
+        int resultConvertRomanToInt = romanMap.get(romanNumber.charAt(romanNumber.length() - 1));
         for (int i = 0; i < romanNumber.length() - 1; i++) {
             int currentNumber = romanMap.get(romanNumber.charAt(i));
             int nextNumber = romanMap.get(romanNumber.charAt(i + 1));
