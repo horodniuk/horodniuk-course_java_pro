@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class RomanNumber {
     private final Map<Character, Integer> romanMap;
     {
-        romanMap = new LinkedHashMap<Character, Integer>();
+        romanMap = new LinkedHashMap<>();
         romanMap.put('I', 1);
         romanMap.put('V', 5);
         romanMap.put('X', 10);
@@ -21,8 +21,8 @@ public class RomanNumber {
     }
 
     public int romanToInt(String romanNumber) {
-        requireNonNull(romanNumber, "String " + romanNumber + " is null");
-        requireStringIsEmpty(romanNumber, "String is empty");
+        requireNonNull(romanNumber, "Parameter in method is null");
+        requireStringIsEmpty(romanNumber, "Parameter in method is empty");
         requireStringLenght(romanNumber, 1, 15);
         requireStringIsRomanSymbols(romanNumber);
 
