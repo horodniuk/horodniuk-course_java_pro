@@ -8,7 +8,13 @@ import java.util.regex.Pattern;
 import static java.util.Objects.requireNonNull;
 
 public class RomanNumber {
+    public static final int MIN_LENGHT_NUMBER = 1;
+    public static final int MAX_LENGHT_NUMBER = 15;
+    public static final int MIN_VALUE_NUMBER = 1;
+    public static final int MAX_VALUE_NUMBER = 3999;
+
     private final Map<Character, Integer> romanMap;
+
     {
         romanMap = new LinkedHashMap<>();
         romanMap.put('I', 1);
@@ -23,7 +29,7 @@ public class RomanNumber {
     public int romanToInt(String romanNumber) {
         requireNonNull(romanNumber, "Parameter in method is null");
         requireStringIsEmpty(romanNumber, "Parameter in method is empty");
-        requireStringLenght(romanNumber, 1, 15);
+        requireStringLenght(romanNumber, MIN_LENGHT_NUMBER, MAX_LENGHT_NUMBER);
         requireStringIsRomanSymbols(romanNumber);
 
         int resultConvertRomanToInt = romanMap.get(romanNumber.charAt(romanNumber.length() - 1));
@@ -33,7 +39,7 @@ public class RomanNumber {
             resultConvertRomanToInt = currentNumber >= nextNumber ?
                     resultConvertRomanToInt + currentNumber : resultConvertRomanToInt - currentNumber;
         }
-        requireIsNumeralInRange(resultConvertRomanToInt, 1, 3999);
+        requireIsNumeralInRange(resultConvertRomanToInt, MIN_VALUE_NUMBER, MAX_VALUE_NUMBER);
         return resultConvertRomanToInt;
     }
 

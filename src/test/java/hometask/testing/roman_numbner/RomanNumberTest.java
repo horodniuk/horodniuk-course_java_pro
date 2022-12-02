@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.*;
 
 import java.util.stream.Stream;
 
+import static hometask.testing.roman_numbner.RomanNumber.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -17,6 +18,7 @@ public class RomanNumberTest {
     @BeforeEach
     void init() {
         romanNumberConvert = new RomanNumber();
+
     }
 
     @Test
@@ -30,20 +32,20 @@ public class RomanNumberTest {
     }
 
     @Test
-    void throwExceptionIfRomanStringLenghtNotRange0to15() {
+    void throwExceptionIfRomanStringLenghtNotRange() {
         try {
             romanNumberConvert.romanToInt("I".repeat(16));
-            fail("Lenght must be between " + 1 + " to " + 15);
+            fail("Lenght must be between " + MIN_LENGHT_NUMBER + " to " + MAX_LENGHT_NUMBER);
         } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
     }
 
     @Test
-    void throwExceptionIfNumeralNotInRange1to3999() {
+    void throwExceptionIfNumeralNotInRange() {
         try {
             romanNumberConvert.romanToInt("MMMM");
-            fail("Numeric must be between " + 1 + " and " + 3999);
+            fail("Numeric must be between " + MIN_VALUE_NUMBER + " and " + MAX_VALUE_NUMBER);
         } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
