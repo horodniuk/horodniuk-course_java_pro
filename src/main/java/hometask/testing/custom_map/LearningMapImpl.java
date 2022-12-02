@@ -1,9 +1,5 @@
 package hometask.testing.custom_map;
 
-import org.w3c.dom.Node;
-
-import java.util.ArrayList;
-
 public class LearningMapImpl implements LearningMap {
     private Node<Integer, String>[] array;
     private int size;
@@ -11,6 +7,10 @@ public class LearningMapImpl implements LearningMap {
     public LearningMapImpl(int initialCapacity) {
         if (initialCapacity > 0) {
             array = new Node[initialCapacity];
+        } else if (initialCapacity == 0) {
+            array = new Node[16];
+        } else {
+            throw new IllegalArgumentException("capacity must be positive number but now capasity is : " + initialCapacity);
         }
     }
 

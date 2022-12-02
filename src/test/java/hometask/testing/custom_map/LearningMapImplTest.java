@@ -14,6 +14,26 @@ class LearningMapImplTest {
         map = new LearningMapImpl(capacity);
     }
 
+
+    @Test
+    public void testCorrectCapacity() {
+        map = new LearningMapImpl(5);
+        assertEquals(5, map.getArray().length);
+        map = new LearningMapImpl(10);
+        assertEquals(10, map.getArray().length);
+        map = new LearningMapImpl(15);
+        assertEquals(15, map.getArray().length);
+    }
+
+    @Test
+    public void testShouldBeExceptionWhenCapacityIsNegative() {
+        try {
+            new LearningMapImpl(-10);
+        } catch (IllegalArgumentException e) {
+            assertTrue(true);
+        }
+    }
+
     @Test
     public void testIsEmpty() {
         assertEquals(0, map.getSize());
@@ -25,7 +45,6 @@ class LearningMapImplTest {
         assertFalse(map.getSize() == 0);
         map.put(2, "Two");
         assertEquals(2, map.getSize());
-
     }
 
     @Test
@@ -68,9 +87,9 @@ class LearningMapImplTest {
         map.put(4, "Four-1");
         map.put(5, "Five-1");
         map.put(1, "One-2");
+        map.put(1, "One-3");
         map.put(2, "Two-2");
         map.put(3, "Three-2");
-        map.put(1, "One-3");
 
         assertEquals("One-3", map.get(1));
         assertEquals("Two-2", map.get(2));
