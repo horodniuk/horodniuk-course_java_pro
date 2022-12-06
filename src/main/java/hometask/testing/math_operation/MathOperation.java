@@ -1,21 +1,28 @@
 package hometask.testing.math_operation;
 
-public class MathOperation {
-    ItemSource itemSource;
+import java.util.Collections;
 
-    public MathOperation(ItemSource itemSource) {
+public class MathOperation {
+    private ItemSource itemSource;
+
+    MathOperation(ItemSource itemSource) {
+        if (itemSource.getItems().isEmpty()) {
+            throw new IllegalArgumentException("Items size can't be empty or null");
+        }
         this.itemSource = itemSource;
     }
 
     int sum() {
-        return 0;
+        return itemSource.getItems()
+                .stream()
+                .reduce(0, Integer::sum);
     }
 
     int avg() {
-        return 0;
+        return this.sum() / itemSource.getItems().size();
     }
 
     int max() {
-        return 0;
+        return Collections.max(itemSource.getItems());
     }
 }
