@@ -5,13 +5,6 @@ import java.util.Collections;
 public class MathOperation {
     private ItemSource itemSource;
 
-    MathOperation(ItemSource itemSource) {
-        if (itemSource.getItems().isEmpty()) {
-            throw new IllegalArgumentException("Items size can't be empty or null");
-        }
-        this.itemSource = itemSource;
-    }
-
     int sum() {
         return itemSource.getItems()
                 .stream()

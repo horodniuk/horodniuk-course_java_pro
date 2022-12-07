@@ -1,7 +1,12 @@
 package hometask.testing.math_operation;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,23 +14,19 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MathOperationTest {
-    private MathOperation operation;
 
-    @Test
-    void throwExceptionIfUserOrPasswordIsEmptyOrNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            ItemSource itemSource = Mockito.mock(ItemSource.class);
-            Mockito.when(itemSource.getItems()).thenReturn(Collections.emptyList());
-            new MathOperation(itemSource);
-        });
-    }
+@ExtendWith({
+        MockitoExtension.class
+})
+class MathOperationTest {
+    @Mock
+    ItemSource itemSource;
+    @InjectMocks
+    MathOperation operation;
 
     @Test
     void testMethodByPositiveItemNumbers() {
-        ItemSource itemSource = Mockito.mock(ItemSource.class);
         Mockito.when(itemSource.getItems()).thenReturn(Arrays.asList(1, 2, 3));
-        operation = new MathOperation(itemSource);
         assertAll(
                 () -> assertThat(operation.sum()).isEqualTo(6),
                 () -> assertThat(operation.avg()).isEqualTo(2),
@@ -35,9 +36,7 @@ class MathOperationTest {
 
     @Test
     void testMethodByNegativeItemNumbers() {
-        ItemSource itemSource = Mockito.mock(ItemSource.class);
         Mockito.when(itemSource.getItems()).thenReturn(Arrays.asList(-1, -2, -3));
-        operation = new MathOperation(itemSource);
         assertAll(
                 () -> assertThat(operation.sum()).isEqualTo(-6),
                 () -> assertThat(operation.avg()).isEqualTo(-2),
@@ -47,9 +46,7 @@ class MathOperationTest {
 
     @Test
     void testMethodByZeroItemNumbers() {
-        ItemSource itemSource = Mockito.mock(ItemSource.class);
         Mockito.when(itemSource.getItems()).thenReturn(Arrays.asList(0, 0, 0));
-        operation = new MathOperation(itemSource);
         assertAll(
                 () -> assertThat(operation.sum()).isEqualTo(0),
                 () -> assertThat(operation.avg()).isEqualTo(0),
@@ -59,9 +56,7 @@ class MathOperationTest {
 
     @Test
     void testMethodByAllTypeItemNumbers() {
-        ItemSource itemSource = Mockito.mock(ItemSource.class);
         Mockito.when(itemSource.getItems()).thenReturn(Arrays.asList(10, 0, -20));
-        operation = new MathOperation(itemSource);
         assertAll(
                 () -> assertThat(operation.sum()).isEqualTo(-10),
                 () -> assertThat(operation.avg()).isEqualTo(-3),
