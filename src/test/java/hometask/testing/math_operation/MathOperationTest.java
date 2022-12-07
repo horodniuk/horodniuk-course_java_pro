@@ -13,7 +13,7 @@ class MathOperationTest {
     private MathOperation operation;
 
     @Test
-    void throwExceptionIfUserOrPasswordIsEmptyOrNull() {
+    void throwExceptionIfItemInItemSourceIsEmptyOrNull() {
         assertThrows(IllegalArgumentException.class, () -> {
             ItemSource itemSource = Mockito.mock(ItemSource.class);
             Mockito.when(itemSource.getItems()).thenReturn(Collections.emptyList());
