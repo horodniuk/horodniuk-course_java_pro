@@ -1,5 +1,5 @@
 package hometask.generic.fruit;
 
-public interface Fruit {
-    float getWeight();
+public abstract class Fruit {
+    abstract float getWeight();
 }

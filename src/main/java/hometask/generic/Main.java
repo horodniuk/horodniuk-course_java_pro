@@ -25,7 +25,6 @@ public class Main {
         List<Orange> orangeTempList = List.of(new Orange(), new Orange());
         Box<Orange> boxByOrange = new Box<>();
         boxByOrange.addAll(orangeTempList);
-
         boolean isWeightsBoxAreEqual = boxByApple.compare(boxByOrange);
         boxByApple.merge(boxByAppleTemp);
     }

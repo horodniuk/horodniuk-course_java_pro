@@ -1,6 +1,6 @@
 package hometask.generic.fruit;
 
-public class Apple implements Fruit {
+public class Apple extends Fruit {
 
     @Override
     public float getWeight() {

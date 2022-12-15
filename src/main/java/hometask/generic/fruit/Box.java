@@ -4,25 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Box<T extends Fruit> implements Comparable<Box> {
+public class Box<T extends Fruit> {
     private static final float WEIGHT_EMPTY_BOX = 0.0F;
-    private List<T> fruits;
+    private final List<T> fruits;
 
     public Box() {
-        fruits = new ArrayList<>();
+        fruits = new ArrayList<T>();
     }
 
     public List<T> getFruits() {
         return fruits;
     }
 
-    @Override
-    public int compareTo(Box secondFruits) {
-        return (int) (this.getWeight() - (secondFruits.getWeight()));
-    }
-
-    public boolean compare(Box secondFruits) {
-        return (compareTo(secondFruits) == 0);
+    public boolean compare(Box<?> secondFruits) {
+        return (this.getWeight() == secondFruits.getWeight());
     }
 
     public void add(T fruit) {
@@ -34,15 +29,11 @@ public class Box<T extends Fruit> implements Comparable<Box> {
     }
 
     public float getWeight() {
-        return fruits.stream()
-                .findFirst()
-                .map(fruit -> fruit.getWeight() * fruits.size())
-                .orElse(WEIGHT_EMPTY_BOX);
+        return fruits.isEmpty() ? WEIGHT_EMPTY_BOX : fruits.iterator().next().getWeight() * fruits.size();
     }
 
     public void merge(Box<T> otherFruits) {
         fruits.addAll(otherFruits.getFruits());
         otherFruits.getFruits().clear();
     }
-
 }
