@@ -1,53 +1,60 @@
 package hometask.multithreading.petrol_station;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.*;
 
 public class PetrolStation {
-    private Double amount;
+    private double amount;
+    private Queue<FuelDispenser> carsQueue;
 
-    public PetrolStation(double amount) {
+    public PetrolStation(double amount, Queue<FuelDispenser> carsQueue) {
         this.amount = amount;
+        this.carsQueue = carsQueue;
     }
 
-    public void doRefuel(double subtractAmount) {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
-        List<Future<?>> futures = new ArrayList<>();
-        futures.add(executor.submit(new Thread(changeValues(subtractAmount))));
-
-        for (Future<?> f : futures) {
-            try {
-                f.get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
+    public static Queue<FuelDispenser> fillCarsQueue(int count) {
+        Queue<FuelDispenser> carsQueue = new ArrayDeque<>();
+        for (int i = 0; i < count; i++) {
+            carsQueue.add(new FuelDispenser());
         }
-        executor.shutdown();
+        return carsQueue;
     }
 
-    private Runnable changeValues(Double subtractAmount) {
-        return new Runnable() {
+    void doRefuel(double subtrack) {
+        new Thread(new Runnable() {
             @Override
-            public synchronized void run() {
+            public void run() {
                 try {
-                    Thread.sleep(generateRandomNumber(1000, 3000));
-                    if (amount > subtractAmount) {
-                        amount -= subtractAmount;
-                        System.out.println(" subtract amount - " + subtractAmount + ". Remainder amount - " + amount);
+                    synchronized (carsQueue) {
+                        while (true) {
+                            if (!carsQueue.isEmpty()) {
+                                if (amount < subtrack) {
+                                    System.out.println(Thread.currentThread().getName() + " - Извините топлива вам не хватит. Вы запросили:" + subtrack + ". а осталось: " + amount);
+                                    carsQueue.notify();
+                                    return;
+                                }
+                                FuelDispenser fuelDispenser = carsQueue.remove();
+                                int refuelingTime = (new Random().nextInt(10000 - 3000) + 3000);
+                                System.out.println(Thread.currentThread().getName() + " oбслуживаеться " + refuelingTime + " мс на колонке -> " + fuelDispenser);
+                                carsQueue.wait(refuelingTime);
+                                amount = amount - subtrack;
+                                System.out.println("Осталось " + amount + " топлива, " + Thread.currentThread().getName() + "  освобождает колонку -> " + fuelDispenser);
+                                carsQueue.add(fuelDispenser);
+                                carsQueue.notify();
+                                break;
+                            } else {
+                                System.out.println(Thread.currentThread().getName() + " ожидает свободную колонку");
+                                carsQueue.wait();
+                            }
+                        }
                     }
-                } catch (InterruptedException e) {
-                    return;
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
                 }
             }
-        };
+        }).start();
     }
 
-    private int generateRandomNumber(int minRange, int maxRange) {
-        return new Random().nextInt(maxRange - minRange) + minRange;
+    public double getAmount() {
+        return amount;
     }
 }
