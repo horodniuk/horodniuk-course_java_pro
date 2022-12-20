@@ -1,6 +1,7 @@
 package hometask.multithreading.value_calculator;
 
 import java.util.Arrays;
+import java.util.concurrent.*;
 
 public class ValueCalculator {
     private final int sizeArray = 1000000;
@@ -13,32 +14,48 @@ public class ValueCalculator {
 
         float[] firstHalfArray = new float[halfSizeArray];
         float[] secondHalfArray = new float[halfSizeArray];
+
         System.arraycopy(array, 0, firstHalfArray, 0, halfSizeArray);
         System.arraycopy(array, halfSizeArray, secondHalfArray, 0, halfSizeArray);
 
-        Thread threadForFirstArray = new Thread(changeValues(firstHalfArray));
-        Thread threadForSecondArray = new Thread(changeValues(secondHalfArray));
-        threadForFirstArray.start();
-        threadForSecondArray.start();
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        Callable<float[]> task1 = new UpdateArrayByFormula(firstHalfArray);
+        Callable<float[]> task2 = new UpdateArrayByFormula(secondHalfArray);
+
+        FutureTask<float[]> futureTask1 = new FutureTask<>(task1);
+        FutureTask<float[]> futureTask2 = new FutureTask<>(task2);
+
+        executorService.execute(futureTask1);
+        executorService.execute(futureTask2);
+        executorService.shutdown();
         try {
-            threadForFirstArray.join();
-            threadForSecondArray.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            firstHalfArray = futureTask1.get();
+            secondHalfArray = futureTask2.get();
+        } catch (InterruptedException | ExecutionException exception) {
+            throw new RuntimeException("Task not executed");
         }
 
         System.arraycopy(firstHalfArray, 0, array, 0, halfSizeArray);
         System.arraycopy(secondHalfArray, 0, array, halfSizeArray, halfSizeArray);
+
         System.out.printf("time execute program - %s milliseconds%n", System.currentTimeMillis() - start);
+        System.out.println("Ok");
     }
 
-    private Runnable changeValues(float[] arr) {
-        return () -> assignNewValuesByFormula(arr);
-    }
 
-    private void assignNewValuesByFormula(float[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+    static class UpdateArrayByFormula implements Callable<float[]> {
+        private final float[] array;
+
+        public UpdateArrayByFormula(float[] arr) {
+            this.array = arr;
+        }
+
+        @Override
+        public float[] call() {
+            for (int i = 0; i < array.length; i++) {
+                array[i] = (float) (array[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+            }
+            return array;
         }
     }
 }
