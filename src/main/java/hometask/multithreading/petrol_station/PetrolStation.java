@@ -3,58 +3,58 @@ package hometask.multithreading.petrol_station;
 import java.util.*;
 
 public class PetrolStation {
-    private double amount;
-    private Queue<FuelDispenser> carsQueue;
+    private double totalFuelAmount;
+    private Queue<FuelDispenser> availableSlots = new ArrayDeque<>();
+    public static final int MIN_TIME_REFUELING_MS = 3000;
+    public static final int MAX_LENGHT_NUMBER_MS = 10000;
 
-    public PetrolStation(double amount, Queue<FuelDispenser> carsQueue) {
-        this.amount = amount;
-        this.carsQueue = carsQueue;
+    public PetrolStation(double totalFuelAmount, int countFuelDispenser) {
+        this.totalFuelAmount = totalFuelAmount;
+        putAvailableSlot(countFuelDispenser);
     }
 
-    public static Queue<FuelDispenser> fillCarsQueue(int count) {
-        Queue<FuelDispenser> carsQueue = new ArrayDeque<>();
-        for (int i = 0; i < count; i++) {
-            carsQueue.add(new FuelDispenser());
-        }
-        return carsQueue;
-    }
-
-    void doRefuel(double subtrack) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    synchronized (carsQueue) {
-                        while (true) {
-                            if (!carsQueue.isEmpty()) {
-                                if (amount < subtrack) {
-                                    System.out.println(Thread.currentThread().getName() + " - Извините топлива вам не хватит. Вы запросили:" + subtrack + ". а осталось: " + amount);
-                                    carsQueue.notify();
-                                    return;
-                                }
-                                FuelDispenser fuelDispenser = carsQueue.remove();
-                                int refuelingTime = (new Random().nextInt(10000 - 3000) + 3000);
-                                System.out.println(Thread.currentThread().getName() + " oбслуживаеться " + refuelingTime + " мс на колонке -> " + fuelDispenser);
-                                carsQueue.wait(refuelingTime);
-                                amount = amount - subtrack;
-                                System.out.println("Осталось " + amount + " топлива, " + Thread.currentThread().getName() + "  освобождает колонку -> " + fuelDispenser);
-                                carsQueue.add(fuelDispenser);
-                                carsQueue.notify();
-                                break;
-                            } else {
-                                System.out.println(Thread.currentThread().getName() + " ожидает свободную колонку");
-                                carsQueue.wait();
+    void doRefuel(double substructFuelAmount) {
+        new Thread(() -> {
+            try {
+                synchronized (availableSlots) {
+                    while (true) {
+                        if (!availableSlots.isEmpty()) {
+                            if (totalFuelAmount < substructFuelAmount) {
+                                System.out.println(Thread.currentThread().getName() + " - Извините топлива вам не хватит. Вы запросили:" + substructFuelAmount + ". а осталось: " + totalFuelAmount);
+                                availableSlots.notify();
+                                return;
                             }
+                            FuelDispenser fuelDispenser = availableSlots.remove();
+                            int refuelingTime = (new Random().nextInt(MAX_LENGHT_NUMBER_MS - MIN_TIME_REFUELING_MS) + MIN_TIME_REFUELING_MS);
+                            System.out.println(Thread.currentThread().getName() + " oбслуживаеться " + refuelingTime + " мс на колонке -> " + fuelDispenser);
+
+                            availableSlots.wait(refuelingTime);
+                            totalFuelAmount = totalFuelAmount - substructFuelAmount;
+                            System.out.println("Осталось " + totalFuelAmount + " топлива, " + Thread.currentThread().getName() + "  освобождает колонку -> " + fuelDispenser);
+
+                            availableSlots.add(fuelDispenser);
+                            availableSlots.notify();
+                            break;
+                        } else {
+                            System.out.println(Thread.currentThread().getName() + " ожидает свободную колонку");
+                            availableSlots.wait();
                         }
                     }
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
                 }
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
         }).start();
     }
 
-    public double getAmount() {
-        return amount;
+    private Queue<FuelDispenser> putAvailableSlot(int countFuelDispenser) {
+        for (int i = 0; i < countFuelDispenser; i++) {
+            availableSlots.add(new FuelDispenser());
+        }
+        return availableSlots;
+    }
+
+    public double getTotalFuelAmount() {
+        return totalFuelAmount;
     }
 }

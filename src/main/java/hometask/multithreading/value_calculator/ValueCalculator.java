@@ -27,13 +27,15 @@ public class ValueCalculator {
 
         executorService.execute(futureTask1);
         executorService.execute(futureTask2);
-        executorService.shutdown();
+
         try {
             firstHalfArray = futureTask1.get();
             secondHalfArray = futureTask2.get();
         } catch (InterruptedException | ExecutionException exception) {
             throw new RuntimeException("Task not executed");
         }
+
+        executorService.shutdown();
 
         System.arraycopy(firstHalfArray, 0, array, 0, halfSizeArray);
         System.arraycopy(secondHalfArray, 0, array, halfSizeArray, halfSizeArray);
